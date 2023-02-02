@@ -6,35 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("")
-public class MainConroller {
-
+@RequestMapping("products")
+public class ProductController {
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("title", "Startseite");
-        model.addAttribute("active", "home");
+        model.addAttribute("title", "Produkte");
+        model.addAttribute("active", "products");
 
-        /*
-        List<String> namen = List.of("Peter", "Carol", "Bruce", "Steve", "Natasha");
-        model.addAttribute("namen", namen);
         Set<Product> produkte = Set.of(new Product("Handschuhe", 19.99),
                                        new Product("Mütze", 12.99),
                                        new Product("Hammer", 22.99));
+
         model.addAttribute("produkte", produkte);
-        */
 
-        return "standard";
-    }
-
-    @GetMapping("contact")
-    public String contact(Model model) {
-        model.addAttribute("title", "Kontakt");
-        model.addAttribute("active", "contact");
         return "standard";
     }
 }
