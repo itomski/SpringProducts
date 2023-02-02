@@ -1,5 +1,9 @@
 package de.lubowiecki.sproducts;
 
+import de.lubowiecki.sproducts.model.User;
+import de.lubowiecki.sproducts.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +17,10 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 @SpringBootApplication
-public class SpringProductsApplication implements WebMvcConfigurer {
+public class SpringProductsApplication implements WebMvcConfigurer, CommandLineRunner {
+
+    @Autowired
+    private UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringProductsApplication.class, args);
@@ -29,6 +36,12 @@ public class SpringProductsApplication implements WebMvcConfigurer {
         SessionLocaleResolver resolver = new SessionLocaleResolver(); // Sprache wird in der Session des Servers gespeichert
         resolver.setDefaultLocale(Locale.GERMANY);
         return resolver;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        User admin = new User("p.parker@shield.com", "geheim123");
+        userRepository.save(admin);
     }
 
     /* Erlaubt das Ändern der Sprache über die URL, http://www.domain.de?lang=de

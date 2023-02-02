@@ -1,11 +1,15 @@
 package de.lubowiecki.sproducts.controller;
 
+import de.lubowiecki.sproducts.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import de.lubowiecki.sproducts.model.User;
 import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,18 +18,28 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("sess")
 public class SessionTestController {
 
-    public User createUser() {
-        return new User();
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("login")
-    public String login(Model model, HttpSession session) {
-        // Formdaten prüfen und wenn User vorhanden und Zugangsdaten ok, dann id in userId schreiben
-        User user = new User();
-        user.setId(10);
-        session.setAttribute("user", user);
-        model.addAttribute("data", "Angemeldet");
-        return "test";
+    public String loginForm(Model model) {
+        return "login-form";
+    }
+
+    @PostMapping("login")
+    public String login(String email, String password, HttpSession session, Model model) {
+
+        Optional<User> opt = userRepository.findByEmail(email);
+        if(opt.isPresent()) {
+
+            User user = opt.get();
+            if(user.getPassword().equals(password)) {
+                session.setAttribute("user", user); // Alles ist ok
+                // Auf seite für eingeloggte umleiten
+            }
+        }
+        // Login nicht ik - Fehler anzeigen
+        return "login-form";
     }
 
     @GetMapping("data")
