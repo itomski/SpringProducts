@@ -1,10 +1,11 @@
 package de.lubowiecki.sproducts.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
 
     private List<Product> products = new ArrayList<>();
 

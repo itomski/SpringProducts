@@ -1,14 +1,25 @@
 # application.yaml ist eine Alternative zu application.properties
 spring:
   datasource:
-    url: jdbc:h2:mem:sproducts
+    #url: jdbc:h2:mem:sproducts
+    url: jdbc:h2:file:~/sproducts
     username: sa
     password: password
     driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
   h2:
     console:
       enabled: true
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    timeout:
+      seconds: 3600
+
+db:
+  reset: false

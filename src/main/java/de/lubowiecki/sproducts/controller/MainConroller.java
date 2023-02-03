@@ -18,16 +18,6 @@ public class MainConroller {
     public String index(Model model) {
         model.addAttribute("title", "Startseite");
         model.addAttribute("active", "home");
-
-        /*
-        List<String> namen = List.of("Peter", "Carol", "Bruce", "Steve", "Natasha");
-        model.addAttribute("namen", namen);
-        Set<Product> produkte = Set.of(new Product("Handschuhe", 19.99),
-                                       new Product("Mütze", 12.99),
-                                       new Product("Hammer", 22.99));
-        model.addAttribute("produkte", produkte);
-        */
-
         return "standard";
     }
 

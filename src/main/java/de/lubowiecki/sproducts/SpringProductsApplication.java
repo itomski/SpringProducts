@@ -7,6 +7,7 @@ import de.lubowiecki.sproducts.repository.CategoryRepository;
 import de.lubowiecki.sproducts.repository.ProductRepository;
 import de.lubowiecki.sproducts.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +32,9 @@ public class SpringProductsApplication implements WebMvcConfigurer, CommandLineR
     @Autowired
     private ProductRepository productRepository;
 
+    @Value("${db.reset}") // greift auf den Wert aus application.yaml zu
+    private boolean dbReset;
+
     public static void main(String[] args) {
         SpringApplication.run(SpringProductsApplication.class, args);
     }
@@ -49,17 +53,23 @@ public class SpringProductsApplication implements WebMvcConfigurer, CommandLineR
 
     @Override
     public void run(String... args) throws Exception {
-        User admin = new User("p.parker@shield.com", "geheim123");
-        userRepository.save(admin);
 
-        Category c1 = new Category("Spielzeug");
-        Category c2 = new Category("Haushalt");
-        categoryRepository.saveAll(List.of(c1, c2));
+        if(dbReset) {
+            userRepository.deleteAll();
+            User admin = new User("p.parker@shield.com", "geheim123");
+            userRepository.save(admin);
 
-        Product p1 = new Product("Krokodoc", "Spiel für Kinder", 19.99, c1, LocalDateTime.now());
-        Product p2 = new Product("Tasse", "Keramik, gelb", 7.99, c2, LocalDateTime.now());
-        Product p3 = new Product("Tasse", "Keramik, blau", 7.99, c2, LocalDateTime.now());
-        productRepository.saveAll(List.of(p1, p2, p3));
+            categoryRepository.deleteAll();
+            Category c1 = new Category("Spielzeug");
+            Category c2 = new Category("Haushalt");
+            categoryRepository.saveAll(List.of(c1, c2));
+
+            productRepository.deleteAll();
+            Product p1 = new Product("Krokodoc", "Spiel für Kinder", 19.99, c1, LocalDateTime.now());
+            Product p2 = new Product("Tasse", "Keramik, gelb", 7.99, c2, LocalDateTime.now());
+            Product p3 = new Product("Tasse", "Keramik, blau", 7.99, c2, LocalDateTime.now());
+            productRepository.saveAll(List.of(p1, p2, p3));
+        }
     }
 
     /* Erlaubt das Ändern der Sprache über die URL, http://www.domain.de?lang=de

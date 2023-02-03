@@ -1,6 +1,7 @@
 package de.lubowiecki.sproducts.config;
 
 import de.lubowiecki.sproducts.model.ShoppingCart;
+import de.lubowiecki.sproducts.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.ApplicationScope;
@@ -18,5 +19,11 @@ public class BeanConfig { // Name ist frei wählbar
     @SessionScope // Jeder Besucher hat seine eine Bean
     public ShoppingCart shoppingCart() { // Methode heißt wie der Typ nur mit Kleinbuchstaben beginnend
         return new ShoppingCart();
+    }
+
+    @Bean
+    @SessionScope
+    public LoginService loginService() {
+        return new LoginService();
     }
 }
