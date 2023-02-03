@@ -2,16 +2,13 @@ package de.lubowiecki.sproducts.controller;
 
 import de.lubowiecki.sproducts.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import de.lubowiecki.sproducts.model.User;
-import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -56,9 +53,9 @@ public class SessionTestController {
 
     @GetMapping("logout")
     public String logout(Model model, HttpSession session) {
-        session.setAttribute("user", null);
+        session.invalidate();
         model.addAttribute("data", "Abgemeldet");
         return "test";
     }
-
 }
+
