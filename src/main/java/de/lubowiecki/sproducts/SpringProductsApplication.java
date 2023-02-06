@@ -35,6 +35,9 @@ public class SpringProductsApplication implements WebMvcConfigurer, CommandLineR
     @Value("${db.reset}") // greift auf den Wert aus application.yaml zu
     private boolean dbReset;
 
+    @Value("${ui.language}")
+    private String uiLanguage;
+
     public static void main(String[] args) {
         SpringApplication.run(SpringProductsApplication.class, args);
     }
@@ -44,10 +47,10 @@ public class SpringProductsApplication implements WebMvcConfigurer, CommandLineR
     // Erlaubt das Ändern der Sprache über wechsel der Locale
     @Bean
     public LocaleResolver localeResolver() {
-        Locale.setDefault(Locale.GERMANY);
+        Locale.setDefault(new Locale(uiLanguage));
         //CookieLocaleResolver resolver = new CookieLocaleResolver(); // Sprache wird im Cookie des Browser gespeichert
         SessionLocaleResolver resolver = new SessionLocaleResolver(); // Sprache wird in der Session des Servers gespeichert
-        resolver.setDefaultLocale(Locale.GERMANY);
+        resolver.setDefaultLocale(new Locale(uiLanguage));
         return resolver;
     }
 
