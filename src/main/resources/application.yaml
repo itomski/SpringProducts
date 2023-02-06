@@ -9,7 +9,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: none
+      ddl-auto:
   h2:
     console:
       enabled: true
@@ -23,15 +23,15 @@ spring:
 
   messages:
     encoding: UTF-8
-  http:
-    encoding: UTF-8
+ # http:
+ #   encoding: UTF-8
   thymeleaf:
     encoding: UTF-8
     mode: HTML5
 
-server:
-  tomcat:
-    uri-encoding: UTF-8
+#server:
+#  tomcat:
+#    uri-encoding: UTF-8
 
   #port: 5555
 
@@ -39,4 +39,4 @@ db:
   reset: false
 
 ui:
-  language: de # de oder en
+  language: en # de oder en

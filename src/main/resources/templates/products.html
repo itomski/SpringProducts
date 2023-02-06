@@ -11,6 +11,10 @@
                 <div class="col">
                     <h1 th:text="${title}"></h1>
 
+                    <div class="my-3">
+                        <a href="/products/new" th:utext="#{btn.product.new}" class="btn btn-success"></a>
+                    </div>
+
                     <!-- table.table>(thead>tr>th*3)+(tbody>tr>td*3) -->
 
                     <table class="table">

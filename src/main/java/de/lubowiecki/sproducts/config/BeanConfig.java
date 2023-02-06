@@ -4,9 +4,14 @@ import de.lubowiecki.sproducts.model.ShoppingCart;
 import de.lubowiecki.sproducts.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Configuration // Wird beim Stat der Anwendung eingelesen. Beschreibt, was beim Start bereitgestellt werden soll
 public class BeanConfig { // Name ist frei wählbar

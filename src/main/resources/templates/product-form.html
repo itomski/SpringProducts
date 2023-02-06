@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments.html :: head(${title})"></head>
+
+<body>
+<nav th:replace="fragments.html :: mainNav"></nav>
+
+<main class="container my-3">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1 th:utext="#{nav.main.products}"></h1>
+
+      <!--/* Thymeleaf-Kommentare
+      <div th:if="${invalid}" class="alert alert-danger mb-3">
+          <ul>
+            <li th:each="e : ${errorList}">
+              <th:block th:text="${e.field}" />:
+              <th:block th:text="${e.defaultMessage}" />
+            </li>
+          </ul>
+      </div>
+
+      <form method="post" action="/products/save">
+
+        <input type="hidden" name="id" id="id" th:value="${product.id}">
+
+        <div class="mb-3">
+          <label for="name" class="form-label" th:utext="#{form.lbl.name}"></label>
+          <input type="text" name="name" id="name" class="form-control" th:value="${product.name}">
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label" th:utext="#{form.lbl.description}"></label>
+          <textarea name="description" id="description" class="form-control" rows="5" th:text="${product.description}"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="availableAt" class="form-label" th:utext="#{form.lbl.available}"></label>
+          <input type="datetime-local" name="availableAt" id="availableAt" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label for="category" class="form-label" th:utext="#{form.lbl.category}"></label>
+          <select name="category" id="category" class="form-select">
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label" th:utext="#{form.lbl.price}"></label>
+          <input type="text" name="price" id="price" class="form-control" th:value="${product.price}">
+        </div>
+
+        <button class="btn btn-success">Speichern</button>
+      </form>
+      */-->
+
+      <form method="post" th:action="@{/products/save}" th:object="${product}">
+
+        <input type="hidden" th:field="*{id}"><!--/* Formularfeld wird mit einer Objekteigenschaft des Produkts verbunden */-->
+
+        <div class="mb-3">
+          <label for="name" class="form-label" th:utext="#{form.lbl.name}"></label>
+          <input type="text" class="form-control" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label" th:utext="#{form.lbl.description}"></label>
+          <textarea class="form-control" rows="5" th:field="*{description}" th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"></textarea>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="availableAt" class="form-label" th:utext="#{form.lbl.available}"></label>
+          <input type="datetime-local" class="form-control" th:field="*{availableAt}" th:classappend="${#fields.hasErrors('availableAt')} ? 'is-invalid' : ''">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('availableAt')}" th:errors="*{availableAt}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="category" class="form-label" th:utext="#{form.lbl.category}"></label>
+          <select class="form-select" th:field="*{category}" th:classappend="${#fields.hasErrors('category')} ? 'is-invalid' : ''">
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}" th:selected="${c==product.category}"></option>
+          </select>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="price" class="form-label" th:utext="#{form.lbl.price}"></label>
+          <input type="text" th:field="*{price}" class="form-control" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        </div>
+
+        <button class="btn btn-success">Speichern</button>
+      </form>
+
+    </div>
+  </div>
+</main>
+
+<th:block th:replace="fragments.html :: foot"></th:block>
+</body>
+</html>
